@@ -15,5 +15,6 @@ except ModuleNotFoundError as exc:
             "`make install-py` and use `.venv/bin/python`."
         ) from exc
     raise
+from .images import ImgwireImage
 
-__all__ = ["ImgwireClient"]
+__all__ = ["ImgwireClient", "ImgwireImage"]

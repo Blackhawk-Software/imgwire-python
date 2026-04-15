@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import Any, BinaryIO, Iterator, Mapping, Optional, Union
+from typing import Any, Iterator, Mapping, Optional
 
 from generated.imgwire_generated.api.images_api import ImagesApi
 from generated.imgwire_generated.models.bulk_delete_images_schema import (
@@ -24,6 +24,7 @@ from generated.imgwire_generated.models.upload_token_create_response_schema impo
 )
 
 from imgwire.client.options import ImgwireClientOptions
+from imgwire.images import ImgwireImage, extend_image
 from imgwire.pagination import Page, iterate_pages, iterate_items
 from imgwire.resources.base import BaseResource
 from imgwire.uploads import ResolvedUpload, resolve_upload_input, upload_bytes
@@ -49,9 +50,10 @@ class ImagesResource(BaseResource):
         upload_token: Optional[str] = None,
     ) -> StandardUploadResponseSchema:
         body = self._coerce_model(StandardUploadCreateSchema, payload)
-        return self._call(
+        created = self._call(
             lambda: self._api.images_create(body, upload_token=upload_token)
         )
+        return created.model_copy(update={"image": extend_image(created.image)})
 
     def create_bulk_download_job(
         self, payload: ImageDownloadJobCreateSchema | Mapping[str, Any]
@@ -67,15 +69,19 @@ class ImagesResource(BaseResource):
 
     def list(
         self, *, page: Optional[int] = None, limit: Optional[int] = None
-    ) -> Page[ImageSchema]:
+    ) -> Page[ImgwireImage]:
         response = self._call(
             lambda: self._api.images_list_with_http_info(limit=limit, page=page)
         )
-        return self._to_page(response)
+        page_result = self._to_page(response)
+        return Page(
+            data=[extend_image(image) for image in page_result.data],
+            pagination=page_result.pagination,
+        )
 
     def list_pages(
         self, *, page: int = 1, limit: Optional[int] = None
-    ) -> Iterator[Page[ImageSchema]]:
+    ) -> Iterator[Page[ImgwireImage]]:
         return iterate_pages(
             lambda current_page, current_limit: self.list(
                 page=current_page, limit=current_limit
@@ -86,11 +92,12 @@ class ImagesResource(BaseResource):
 
     def list_all(
         self, *, page: int = 1, limit: Optional[int] = None
-    ) -> Iterator[ImageSchema]:
+    ) -> Iterator[ImgwireImage]:
         return iterate_items(self.list_pages(page=page, limit=limit))
 
-    def retrieve(self, image_id: str) -> ImageSchema:
-        return self._call(lambda: self._api.images_retrieve(image_id))
+    def retrieve(self, image_id: str) -> ImgwireImage:
+        image = self._call(lambda: self._api.images_retrieve(image_id))
+        return extend_image(image)
 
     def retrieve_bulk_download_job(
         self, image_download_job_id: str
@@ -110,7 +117,7 @@ class ImagesResource(BaseResource):
         hash_sha256: Optional[str] = None,
         idempotency_key: Optional[str] = None,
         purpose: Optional[str] = None,
-    ) -> ImageSchema:
+    ) -> ImgwireImage:
         resolved = resolve_upload_input(
             file,
             file_name=file_name,
@@ -129,7 +136,7 @@ class ImagesResource(BaseResource):
             max_retries=self._options.max_retries,
             backoff_factor=self._options.backoff_factor,
         )
-        return created.image
+        return extend_image(created.image)
 
 
 def _build_standard_upload_payload(
