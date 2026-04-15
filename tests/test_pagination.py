@@ -37,6 +37,23 @@ class PaginationTests(unittest.TestCase):
         self.assertEqual(len(seen_pages), 2)
         self.assertEqual(seen_items, [1, 2, 3, 4])
 
+    def test_null_header_values_are_treated_as_missing(self) -> None:
+        pagination = Pagination.from_headers(
+            {
+                "X-Total-Count": "10",
+                "X-Page": "1",
+                "X-Limit": "25",
+                "X-Prev-Page": "null",
+                "X-Next-Page": "",
+            }
+        )
+
+        self.assertEqual(pagination.total_count, 10)
+        self.assertEqual(pagination.page, 1)
+        self.assertEqual(pagination.limit, 25)
+        self.assertIsNone(pagination.prev_page)
+        self.assertIsNone(pagination.next_page)
+
 
 if __name__ == "__main__":
     unittest.main()

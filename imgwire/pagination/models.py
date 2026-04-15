@@ -8,7 +8,11 @@ T = TypeVar("T")
 
 def _parse_int(headers: Mapping[str, str], key: str) -> Optional[int]:
     value = headers.get(key)
-    if value is None or value == "":
+    if value is None:
+        return None
+
+    normalized = value.strip().lower()
+    if normalized in {"", "null", "none"}:
         return None
     return int(value)
 
