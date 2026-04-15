@@ -7,7 +7,7 @@ NODE ?= yarn
 VENV_PYTHON := $(VENV)/bin/python
 VENV_PIP := $(VENV)/bin/pip
 
-.PHONY: help install install-js venv install-py generate verify-generated test build format format-py format-js clean ci
+.PHONY: help install install-js venv install-py generate verify-generated test build format format-py format-js release-set clean ci
 
 help:
 	@printf "%s\n" \
@@ -23,6 +23,7 @@ help:
 		"  make format             Run Python and non-Python formatting" \
 		"  make format-py          Run the Python formatter" \
 		"  make format-js          Run Prettier for repo metadata and docs" \
+		"  make release-set VERSION=X.Y.Z  Set the repo/package version manually" \
 		"  make clean              Remove local build artifacts" \
 		"  make ci                 Run generation verification, tests, and package build"
 
@@ -59,6 +60,10 @@ format-py:
 
 format-js:
 	$(NODE) format
+
+release-set:
+	@test -n "$(VERSION)" || (echo "VERSION is required. Usage: make release-set VERSION=0.2.0" && exit 1)
+	$(NODE) release:set-version $(VERSION)
 
 clean:
 	rm -rf build dist imgwire.egg-info

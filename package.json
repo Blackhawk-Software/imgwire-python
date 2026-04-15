@@ -10,6 +10,8 @@
     "generate": "tsx scripts/generate.ts",
     "postprocess": "tsx scripts/postprocess.ts",
     "verify-generated": "tsx scripts/verify-generated.ts",
+    "release:set-version": "node scripts/release.mjs set-version",
+    "release:verify-tag": "node scripts/release.mjs verify-tag",
     "format": "prettier --write README.md docs/**/*.md .github/workflows/*.yml package.json tsconfig.json openapitools.json scripts/**/*.ts",
     "ci": "yarn verify-generated"
   },

@@ -104,6 +104,17 @@ Common local workflows:
 make help
 make format
 make format-py
+make release-set VERSION=0.2.0
 make clean
 make ci
+```
+
+## Versioning
+
+The PyPI package version lives in `pyproject.toml`, and the repo tooling version in `package.json` is kept in sync with it.
+
+Set a new version manually with:
+
+```bash
+make release-set VERSION=0.2.0
 ```
