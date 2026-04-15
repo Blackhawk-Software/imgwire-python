@@ -1,5 +1,10 @@
 # `imgwire`
 
+[![PyPI version](https://img.shields.io/pypi/v/imgwire.svg)](https://pypi.org/project/imgwire/)
+[![Python versions](https://img.shields.io/pypi/pyversions/imgwire.svg)](https://pypi.org/project/imgwire/)
+[![CI](https://github.com/Blackhawk-Software/imgwire-python/actions/workflows/ci.yml/badge.svg)](https://github.com/Blackhawk-Software/imgwire-python/actions/workflows/ci.yml)
+[![Release](https://github.com/Blackhawk-Software/imgwire-python/actions/workflows/release.yml/badge.svg)](https://github.com/Blackhawk-Software/imgwire-python/actions/workflows/release.yml)
+
 `imgwire` is the server-side Python SDK for the imgwire API.
 
 Use it in backend services, jobs, and server runtimes to authenticate with a Server API Key, upload files from Python paths, file objects, or bytes, manage server-side resources, and call the imgwire API without hand-writing request plumbing.
