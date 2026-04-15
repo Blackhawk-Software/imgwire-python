@@ -63,6 +63,10 @@ export async function runPostprocess(options?: {
       .replaceAll(
         "import imgwire_generated",
         "import generated.imgwire_generated",
+      )
+      .replaceAll(
+        "getattr(imgwire_generated.models, klass)",
+        "getattr(generated.imgwire_generated.models, klass)",
       );
     if (updated !== source) {
       await writeFile(filePath, updated, "utf8");
