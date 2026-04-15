@@ -1,0 +1,2019 @@
+{
+  "components": {
+    "schemas": {
+      "BulkDeleteImagesSchema": {
+        "properties": {
+          "image_ids": {
+            "items": {
+              "format": "uuid",
+              "type": "string"
+            },
+            "minItems": 1,
+            "title": "Image Ids",
+            "type": "array"
+          }
+        },
+        "required": [
+          "image_ids"
+        ],
+        "title": "BulkDeleteImagesSchema",
+        "type": "object"
+      },
+      "CacheHitRatioDatasetPointSchema": {
+        "properties": {
+          "label": {
+            "title": "Label",
+            "type": "string"
+          },
+          "value": {
+            "title": "Value",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "label",
+          "value"
+        ],
+        "title": "CacheHitRatioDatasetPointSchema",
+        "type": "object"
+      },
+      "CorsOriginCreateSchema": {
+        "properties": {
+          "pattern": {
+            "minLength": 1,
+            "title": "Pattern",
+            "type": "string"
+          }
+        },
+        "required": [
+          "pattern"
+        ],
+        "title": "CorsOriginCreateSchema",
+        "type": "object"
+      },
+      "CorsOriginSchema": {
+        "properties": {
+          "created_at": {
+            "format": "date-time",
+            "title": "Created At",
+            "type": "string"
+          },
+          "environment_id": {
+            "format": "uuid",
+            "title": "Environment Id",
+            "type": "string"
+          },
+          "id": {
+            "format": "uuid",
+            "title": "Id",
+            "type": "string"
+          },
+          "pattern": {
+            "title": "Pattern",
+            "type": "string"
+          },
+          "updated_at": {
+            "format": "date-time",
+            "title": "Updated At",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "environment_id",
+          "pattern",
+          "created_at",
+          "updated_at"
+        ],
+        "title": "CorsOriginSchema",
+        "type": "object"
+      },
+      "CorsOriginUpdateSchema": {
+        "properties": {
+          "pattern": {
+            "minLength": 1,
+            "title": "Pattern",
+            "type": "string"
+          }
+        },
+        "required": [
+          "pattern"
+        ],
+        "title": "CorsOriginUpdateSchema",
+        "type": "object"
+      },
+      "CustomDomainCertificateStatus": {
+        "description": "Represents SSL certificate status for custom domains.",
+        "enum": [
+          "PENDING",
+          "ACTIVE",
+          "FAILING"
+        ],
+        "title": "CustomDomainCertificateStatus",
+        "type": "string"
+      },
+      "CustomDomainCreateSchema": {
+        "properties": {
+          "hostname": {
+            "title": "Hostname",
+            "type": "string"
+          }
+        },
+        "required": [
+          "hostname"
+        ],
+        "title": "CustomDomainCreateSchema",
+        "type": "object"
+      },
+      "CustomDomainSchema": {
+        "properties": {
+          "certificate_status": {
+            "$ref": "#/components/schemas/CustomDomainCertificateStatus"
+          },
+          "cname_record": {
+            "title": "Cname Record",
+            "type": "string"
+          },
+          "cname_value": {
+            "title": "Cname Value",
+            "type": "string"
+          },
+          "created_at": {
+            "format": "date-time",
+            "title": "Created At",
+            "type": "string"
+          },
+          "dcv_cname_record": {
+            "title": "Dcv Cname Record",
+            "type": "string"
+          },
+          "dcv_cname_value": {
+            "title": "Dcv Cname Value",
+            "type": "string"
+          },
+          "environment_id": {
+            "format": "uuid",
+            "title": "Environment Id",
+            "type": "string"
+          },
+          "hostname": {
+            "title": "Hostname",
+            "type": "string"
+          },
+          "id": {
+            "format": "uuid",
+            "title": "Id",
+            "type": "string"
+          },
+          "last_verified_at": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Last Verified At"
+          },
+          "status": {
+            "$ref": "#/components/schemas/CustomDomainStatus"
+          },
+          "updated_at": {
+            "format": "date-time",
+            "title": "Updated At",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "environment_id",
+          "hostname",
+          "cname_record",
+          "cname_value",
+          "dcv_cname_record",
+          "dcv_cname_value",
+          "certificate_status",
+          "status",
+          "last_verified_at",
+          "created_at",
+          "updated_at"
+        ],
+        "title": "CustomDomainSchema",
+        "type": "object"
+      },
+      "CustomDomainStatus": {
+        "description": "Represents connection status for custom domains.",
+        "enum": [
+          "PENDING",
+          "CONNECTED",
+          "FAILED"
+        ],
+        "title": "CustomDomainStatus",
+        "type": "string"
+      },
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
+            "title": "Detail",
+            "type": "array"
+          }
+        },
+        "title": "HTTPValidationError",
+        "type": "object"
+      },
+      "ImageDownloadJobCreateSchema": {
+        "properties": {
+          "image_ids": {
+            "items": {
+              "format": "uuid",
+              "type": "string"
+            },
+            "minItems": 1,
+            "title": "Image Ids",
+            "type": "array"
+          }
+        },
+        "required": [
+          "image_ids"
+        ],
+        "title": "ImageDownloadJobCreateSchema",
+        "type": "object"
+      },
+      "ImageDownloadJobSchema": {
+        "properties": {
+          "created_at": {
+            "format": "date-time",
+            "title": "Created At",
+            "type": "string"
+          },
+          "download_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Download Url"
+          },
+          "environment_id": {
+            "anyOf": [
+              {
+                "format": "uuid",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Environment Id"
+          },
+          "id": {
+            "format": "uuid",
+            "title": "Id",
+            "type": "string"
+          },
+          "image_ids": {
+            "items": {
+              "format": "uuid",
+              "type": "string"
+            },
+            "title": "Image Ids",
+            "type": "array"
+          },
+          "status": {
+            "$ref": "#/components/schemas/ImageDownloadStatus"
+          },
+          "updated_at": {
+            "format": "date-time",
+            "title": "Updated At",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "environment_id",
+          "status",
+          "image_ids",
+          "download_url",
+          "created_at",
+          "updated_at"
+        ],
+        "title": "ImageDownloadJobSchema",
+        "type": "object"
+      },
+      "ImageDownloadStatus": {
+        "description": "Represents the download state for a bulk image download job.",
+        "enum": [
+          "PENDING",
+          "PROCESSING",
+          "READY",
+          "FAILED"
+        ],
+        "title": "ImageDownloadStatus",
+        "type": "string"
+      },
+      "ImageSchema": {
+        "properties": {
+          "cdn_url": {
+            "title": "Cdn Url",
+            "type": "string"
+          },
+          "created_at": {
+            "format": "date-time",
+            "title": "Created At",
+            "type": "string"
+          },
+          "custom_metadata": {
+            "additionalProperties": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "boolean"
+                }
+              ]
+            },
+            "title": "Custom Metadata",
+            "type": "object"
+          },
+          "deleted_at": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Deleted At"
+          },
+          "environment_id": {
+            "anyOf": [
+              {
+                "format": "uuid",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Environment Id"
+          },
+          "exif_data": {
+            "additionalProperties": true,
+            "title": "Exif Data",
+            "type": "object"
+          },
+          "extension": {
+            "title": "Extension",
+            "type": "string"
+          },
+          "hash_sha256": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Hash Sha256"
+          },
+          "height": {
+            "title": "Height",
+            "type": "integer"
+          },
+          "id": {
+            "format": "uuid",
+            "title": "Id",
+            "type": "string"
+          },
+          "idempotency_key": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Idempotency Key"
+          },
+          "mime_type": {
+            "$ref": "#/components/schemas/SupportedMimeType"
+          },
+          "original_filename": {
+            "title": "Original Filename",
+            "type": "string"
+          },
+          "processed_metadata_at": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Processed Metadata At"
+          },
+          "purpose": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Purpose"
+          },
+          "size_bytes": {
+            "title": "Size Bytes",
+            "type": "integer"
+          },
+          "status": {
+            "$ref": "#/components/schemas/ImageStatus"
+          },
+          "updated_at": {
+            "format": "date-time",
+            "title": "Updated At",
+            "type": "string"
+          },
+          "upload_token_id": {
+            "anyOf": [
+              {
+                "format": "uuid",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Upload Token Id"
+          },
+          "width": {
+            "title": "Width",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "id",
+          "environment_id",
+          "upload_token_id",
+          "original_filename",
+          "hash_sha256",
+          "status",
+          "cdn_url",
+          "mime_type",
+          "idempotency_key",
+          "purpose",
+          "extension",
+          "width",
+          "height",
+          "size_bytes",
+          "custom_metadata",
+          "exif_data",
+          "created_at",
+          "updated_at",
+          "deleted_at",
+          "processed_metadata_at"
+        ],
+        "title": "ImageSchema",
+        "type": "object"
+      },
+      "ImageStatus": {
+        "description": "Represents the processing state for an image.",
+        "enum": [
+          "PENDING",
+          "PROCESSING",
+          "READY",
+          "QUARANTINE"
+        ],
+        "title": "ImageStatus",
+        "type": "string"
+      },
+      "MetricsDatasetInterval": {
+        "description": "Represents a chart aggregation interval for metrics datasets.",
+        "enum": [
+          "HOURLY",
+          "DAILY",
+          "WEEKLY",
+          "MONTHLY"
+        ],
+        "title": "MetricsDatasetInterval",
+        "type": "string"
+      },
+      "MetricsDatasetsSchema": {
+        "properties": {
+          "cache_hit_ratio": {
+            "items": {
+              "$ref": "#/components/schemas/CacheHitRatioDatasetPointSchema"
+            },
+            "title": "Cache Hit Ratio",
+            "type": "array"
+          },
+          "requests": {
+            "items": {
+              "$ref": "#/components/schemas/RequestsDatasetPointSchema"
+            },
+            "title": "Requests",
+            "type": "array"
+          },
+          "storage_bytes": {
+            "items": {
+              "$ref": "#/components/schemas/StorageBytesDatasetPointSchema"
+            },
+            "title": "Storage Bytes",
+            "type": "array"
+          },
+          "transfer_bytes": {
+            "items": {
+              "$ref": "#/components/schemas/TransferBytesDatasetPointSchema"
+            },
+            "title": "Transfer Bytes",
+            "type": "array"
+          },
+          "transformations": {
+            "items": {
+              "$ref": "#/components/schemas/TransformationsDatasetPointSchema"
+            },
+            "title": "Transformations",
+            "type": "array"
+          },
+          "uploads": {
+            "items": {
+              "$ref": "#/components/schemas/UploadsDatasetPointSchema"
+            },
+            "title": "Uploads",
+            "type": "array"
+          }
+        },
+        "required": [
+          "uploads",
+          "transformations",
+          "requests",
+          "transfer_bytes",
+          "cache_hit_ratio",
+          "storage_bytes"
+        ],
+        "title": "MetricsDatasetsSchema",
+        "type": "object"
+      },
+      "MetricsStatsSchema": {
+        "properties": {
+          "cache_hit_ratio": {
+            "$ref": "#/components/schemas/MetricsStatValueSchema"
+          },
+          "requests": {
+            "$ref": "#/components/schemas/MetricsStatValueSchema"
+          },
+          "storage_bytes": {
+            "$ref": "#/components/schemas/MetricsStatValueSchema"
+          },
+          "transfer_bytes": {
+            "$ref": "#/components/schemas/MetricsStatValueSchema"
+          },
+          "transformations": {
+            "$ref": "#/components/schemas/MetricsStatValueSchema"
+          },
+          "uploads": {
+            "$ref": "#/components/schemas/MetricsStatValueSchema"
+          }
+        },
+        "required": [
+          "uploads",
+          "transformations",
+          "requests",
+          "transfer_bytes",
+          "cache_hit_ratio",
+          "storage_bytes"
+        ],
+        "title": "MetricsStatsSchema",
+        "type": "object"
+      },
+      "MetricsStatValueSchema": {
+        "properties": {
+          "pct_change": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Pct Change"
+          },
+          "prev": {
+            "title": "Prev",
+            "type": "number"
+          },
+          "value": {
+            "title": "Value",
+            "type": "number"
+          }
+        },
+        "required": [
+          "value",
+          "prev",
+          "pct_change"
+        ],
+        "title": "MetricsStatValueSchema",
+        "type": "object"
+      },
+      "RequestsDatasetPointSchema": {
+        "properties": {
+          "requests": {
+            "title": "Requests",
+            "type": "integer"
+          },
+          "timestamp": {
+            "format": "date-time",
+            "title": "Timestamp",
+            "type": "string"
+          }
+        },
+        "required": [
+          "timestamp",
+          "requests"
+        ],
+        "title": "RequestsDatasetPointSchema",
+        "type": "object"
+      },
+      "StandardUploadCreateSchema": {
+        "properties": {
+          "content_length": {
+            "anyOf": [
+              {
+                "minimum": 0,
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Content Length"
+          },
+          "custom_metadata": {
+            "additionalProperties": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "boolean"
+                }
+              ]
+            },
+            "title": "Custom Metadata",
+            "type": "object"
+          },
+          "file_name": {
+            "minLength": 1,
+            "title": "File Name",
+            "type": "string"
+          },
+          "hash_sha256": {
+            "anyOf": [
+              {
+                "maxLength": 255,
+                "minLength": 1,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Hash Sha256"
+          },
+          "idempotency_key": {
+            "anyOf": [
+              {
+                "maxLength": 255,
+                "minLength": 1,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Idempotency Key"
+          },
+          "mime_type": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SupportedMimeType"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "purpose": {
+            "anyOf": [
+              {
+                "maxLength": 255,
+                "minLength": 1,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Purpose"
+          }
+        },
+        "required": [
+          "file_name"
+        ],
+        "title": "StandardUploadCreateSchema",
+        "type": "object"
+      },
+      "StandardUploadResponseSchema": {
+        "properties": {
+          "image": {
+            "$ref": "#/components/schemas/ImageSchema"
+          },
+          "upload_url": {
+            "title": "Upload Url",
+            "type": "string"
+          }
+        },
+        "required": [
+          "image",
+          "upload_url"
+        ],
+        "title": "StandardUploadResponseSchema",
+        "type": "object"
+      },
+      "StorageBytesDatasetPointSchema": {
+        "properties": {
+          "storage_bytes_added": {
+            "title": "Storage Bytes Added",
+            "type": "integer"
+          },
+          "storage_bytes_current": {
+            "title": "Storage Bytes Current",
+            "type": "integer"
+          },
+          "timestamp": {
+            "format": "date-time",
+            "title": "Timestamp",
+            "type": "string"
+          }
+        },
+        "required": [
+          "timestamp",
+          "storage_bytes_current",
+          "storage_bytes_added"
+        ],
+        "title": "StorageBytesDatasetPointSchema",
+        "type": "object"
+      },
+      "SupportedMimeType": {
+        "description": "Represents supported image MIME types.",
+        "enum": [
+          "image/jpeg",
+          "image/png",
+          "image/webp",
+          "image/avif",
+          "image/gif"
+        ],
+        "title": "SupportedMimeType",
+        "type": "string"
+      },
+      "TransferBytesDatasetPointSchema": {
+        "properties": {
+          "timestamp": {
+            "format": "date-time",
+            "title": "Timestamp",
+            "type": "string"
+          },
+          "transfer_bytes": {
+            "title": "Transfer Bytes",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "timestamp",
+          "transfer_bytes"
+        ],
+        "title": "TransferBytesDatasetPointSchema",
+        "type": "object"
+      },
+      "TransformationsDatasetPointSchema": {
+        "properties": {
+          "timestamp": {
+            "format": "date-time",
+            "title": "Timestamp",
+            "type": "string"
+          },
+          "transformations": {
+            "title": "Transformations",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "timestamp",
+          "transformations"
+        ],
+        "title": "TransformationsDatasetPointSchema",
+        "type": "object"
+      },
+      "UploadsDatasetPointSchema": {
+        "properties": {
+          "timestamp": {
+            "format": "date-time",
+            "title": "Timestamp",
+            "type": "string"
+          },
+          "uploads": {
+            "title": "Uploads",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "timestamp",
+          "uploads"
+        ],
+        "title": "UploadsDatasetPointSchema",
+        "type": "object"
+      },
+      "UploadTokenCreateResponseSchema": {
+        "properties": {
+          "created_at": {
+            "format": "date-time",
+            "title": "Created At",
+            "type": "string"
+          },
+          "environment_id": {
+            "format": "uuid",
+            "title": "Environment Id",
+            "type": "string"
+          },
+          "expires_at": {
+            "format": "date-time",
+            "title": "Expires At",
+            "type": "string"
+          },
+          "id": {
+            "format": "uuid",
+            "title": "Id",
+            "type": "string"
+          },
+          "token": {
+            "title": "Token",
+            "type": "string"
+          },
+          "updated_at": {
+            "format": "date-time",
+            "title": "Updated At",
+            "type": "string"
+          },
+          "used_at": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Used At"
+          }
+        },
+        "required": [
+          "id",
+          "environment_id",
+          "used_at",
+          "expires_at",
+          "created_at",
+          "updated_at",
+          "token"
+        ],
+        "title": "UploadTokenCreateResponseSchema",
+        "type": "object"
+      },
+      "ValidationError": {
+        "properties": {
+          "loc": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "title": "Location",
+            "type": "array"
+          },
+          "msg": {
+            "title": "Message",
+            "type": "string"
+          },
+          "type": {
+            "title": "Error Type",
+            "type": "string"
+          }
+        },
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "title": "ValidationError",
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "title": "imgwire.dev Backend API development",
+    "version": "0.1.0"
+  },
+  "openapi": "3.1.0",
+  "paths": {
+    "/api/v1/cors_origins/": {
+      "get": {
+        "operationId": "CorsOrigins_list",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "limit",
+            "required": false,
+            "schema": {
+              "default": 20,
+              "maximum": 100,
+              "minimum": 1,
+              "title": "Limit",
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "page",
+            "required": false,
+            "schema": {
+              "default": 1,
+              "minimum": 1,
+              "title": "Page",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/CorsOriginSchema"
+                  },
+                  "title": "Response List Cors Origins Api V1 Cors Origins  Get",
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful Response",
+            "headers": {
+              "X-Limit": {
+                "description": "Maximum number of items returned per page.",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "X-Next-Page": {
+                "description": "Next page number, or null when there is no next page.",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "X-Page": {
+                "description": "Current page number.",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "X-Prev-Page": {
+                "description": "Previous page number, or null when there is no previous page.",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "X-Total-Count": {
+                "description": "Total number of items matching the request.",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "List CORS Origins",
+        "tags": [
+          "CorsOrigins"
+        ],
+        "x-codegen-sdk-auth": "server_key",
+        "x-codegen-sdk-group-name": "corsOrigins",
+        "x-codegen-sdk-method-name": "list",
+        "x-codegen-sdk-pagination": "offset_pagination"
+      },
+      "post": {
+        "operationId": "CorsOrigins_create",
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CorsOriginCreateSchema"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CorsOriginSchema"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Create CORS Origin",
+        "tags": [
+          "CorsOrigins"
+        ],
+        "x-codegen-sdk-auth": "server_key",
+        "x-codegen-sdk-group-name": "corsOrigins",
+        "x-codegen-sdk-method-name": "create"
+      }
+    },
+    "/api/v1/cors_origins/{cors_origin_id}": {
+      "delete": {
+        "operationId": "CorsOrigins_delete",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "cors_origin_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Cors Origin Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": {
+                    "type": "string"
+                  },
+                  "title": "Response Delete Cors Origin By Id Api V1 Cors Origins  Cors Origin Id  Delete",
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Delete CORS Origin By ID",
+        "tags": [
+          "CorsOrigins"
+        ],
+        "x-codegen-sdk-auth": "server_key",
+        "x-codegen-sdk-group-name": "corsOrigins",
+        "x-codegen-sdk-method-name": "delete"
+      },
+      "get": {
+        "operationId": "CorsOrigins_retrieve",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "cors_origin_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Cors Origin Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CorsOriginSchema"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Get CORS Origin By ID",
+        "tags": [
+          "CorsOrigins"
+        ],
+        "x-codegen-sdk-auth": "server_key",
+        "x-codegen-sdk-group-name": "corsOrigins",
+        "x-codegen-sdk-method-name": "retrieve"
+      },
+      "patch": {
+        "operationId": "CorsOrigins_update",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "cors_origin_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Cors Origin Id",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CorsOriginUpdateSchema"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CorsOriginSchema"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Update CORS Origin By ID",
+        "tags": [
+          "CorsOrigins"
+        ],
+        "x-codegen-sdk-auth": "server_key",
+        "x-codegen-sdk-group-name": "corsOrigins",
+        "x-codegen-sdk-method-name": "update"
+      }
+    },
+    "/api/v1/custom_domain/": {
+      "delete": {
+        "operationId": "CustomDomain_delete",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": {
+                    "type": "string"
+                  },
+                  "title": "Response Delete Custom Domain Api V1 Custom Domain  Delete",
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Delete Custom Domain",
+        "tags": [
+          "CustomDomain"
+        ],
+        "x-codegen-sdk-auth": "server_key",
+        "x-codegen-sdk-group-name": "customDomain",
+        "x-codegen-sdk-method-name": "delete"
+      },
+      "get": {
+        "operationId": "CustomDomain_retrieve",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CustomDomainSchema"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Get Custom Domain",
+        "tags": [
+          "CustomDomain"
+        ],
+        "x-codegen-sdk-auth": "server_key",
+        "x-codegen-sdk-group-name": "customDomain",
+        "x-codegen-sdk-method-name": "retrieve"
+      },
+      "post": {
+        "operationId": "CustomDomain_create",
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CustomDomainCreateSchema"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CustomDomainSchema"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Create Custom Domain",
+        "tags": [
+          "CustomDomain"
+        ],
+        "x-codegen-sdk-auth": "server_key",
+        "x-codegen-sdk-group-name": "customDomain",
+        "x-codegen-sdk-method-name": "create"
+      }
+    },
+    "/api/v1/custom_domain/test_connection": {
+      "post": {
+        "operationId": "CustomDomain_testConnection",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CustomDomainSchema"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Test Custom Domain Connection",
+        "tags": [
+          "CustomDomain"
+        ],
+        "x-codegen-sdk-auth": "server_key",
+        "x-codegen-sdk-group-name": "customDomain",
+        "x-codegen-sdk-method-name": "testConnection"
+      }
+    },
+    "/api/v1/images/": {
+      "get": {
+        "operationId": "Images_list",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "limit",
+            "required": false,
+            "schema": {
+              "default": 20,
+              "maximum": 100,
+              "minimum": 1,
+              "title": "Limit",
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "page",
+            "required": false,
+            "schema": {
+              "default": 1,
+              "minimum": 1,
+              "title": "Page",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/ImageSchema"
+                  },
+                  "title": "Response List Images Api V1 Images  Get",
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful Response",
+            "headers": {
+              "X-Limit": {
+                "description": "Maximum number of items returned per page.",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "X-Next-Page": {
+                "description": "Next page number, or null when there is no next page.",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "X-Page": {
+                "description": "Current page number.",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "X-Prev-Page": {
+                "description": "Previous page number, or null when there is no previous page.",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "X-Total-Count": {
+                "description": "Total number of items matching the request.",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "List Images",
+        "tags": [
+          "Images"
+        ],
+        "x-codegen-sdk-auth": "server_key",
+        "x-codegen-sdk-group-name": "images",
+        "x-codegen-sdk-method-name": "list",
+        "x-codegen-sdk-pagination": "offset_pagination"
+      }
+    },
+    "/api/v1/images/{image_id}": {
+      "delete": {
+        "operationId": "Images_delete",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "image_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Image Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": {
+                    "type": "string"
+                  },
+                  "title": "Response Delete Image By Id Api V1 Images  Image Id  Delete",
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Delete Image By ID",
+        "tags": [
+          "Images"
+        ],
+        "x-codegen-sdk-auth": "server_key",
+        "x-codegen-sdk-group-name": "images",
+        "x-codegen-sdk-method-name": "delete"
+      },
+      "get": {
+        "operationId": "Images_retrieve",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "image_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Image Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ImageSchema"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Get Image By ID",
+        "tags": [
+          "Images"
+        ],
+        "x-codegen-sdk-auth": "server_or_client_key",
+        "x-codegen-sdk-group-name": "images",
+        "x-codegen-sdk-method-name": "retrieve"
+      }
+    },
+    "/api/v1/images/bulk_delete": {
+      "post": {
+        "operationId": "Images_bulkDelete",
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BulkDeleteImagesSchema"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": {
+                    "type": "string"
+                  },
+                  "title": "Response Bulk Delete Images Api V1 Images Bulk Delete Post",
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Bulk Delete Images",
+        "tags": [
+          "Images"
+        ],
+        "x-codegen-sdk-auth": "server_key",
+        "x-codegen-sdk-group-name": "images",
+        "x-codegen-sdk-method-name": "bulkDelete"
+      }
+    },
+    "/api/v1/images/downloads": {
+      "post": {
+        "operationId": "Images_createBulkDownloadJob",
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ImageDownloadJobCreateSchema"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ImageDownloadJobSchema"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Create Bulk Image Download Job",
+        "tags": [
+          "Images"
+        ],
+        "x-codegen-sdk-auth": "server_key",
+        "x-codegen-sdk-group-name": "images",
+        "x-codegen-sdk-method-name": "createBulkDownloadJob"
+      }
+    },
+    "/api/v1/images/downloads/{image_download_job_id}": {
+      "get": {
+        "operationId": "Images_retrieveBulkDownloadJob",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "image_download_job_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Image Download Job Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ImageDownloadJobSchema"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Get Bulk Image Download Job",
+        "tags": [
+          "Images"
+        ],
+        "x-codegen-sdk-auth": "server_key",
+        "x-codegen-sdk-group-name": "images",
+        "x-codegen-sdk-method-name": "retrieveBulkDownloadJob"
+      }
+    },
+    "/api/v1/images/standard_upload": {
+      "post": {
+        "operationId": "Images_create",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "upload_token",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Upload Token"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/StandardUploadCreateSchema"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StandardUploadResponseSchema"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Create Standard Upload",
+        "tags": [
+          "Images"
+        ],
+        "x-codegen-sdk-auth": "server_or_client_key",
+        "x-codegen-sdk-group-name": "images",
+        "x-codegen-sdk-method-name": "create"
+      }
+    },
+    "/api/v1/images/token": {
+      "post": {
+        "operationId": "Images_createUploadToken",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UploadTokenCreateResponseSchema"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Create Upload Token",
+        "tags": [
+          "Images"
+        ],
+        "x-codegen-sdk-auth": "server_key",
+        "x-codegen-sdk-group-name": "images",
+        "x-codegen-sdk-method-name": "createUploadToken"
+      }
+    },
+    "/api/v1/metrics/datasets": {
+      "get": {
+        "operationId": "Metrics_getDatasets",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "date_end",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "format": "date-time",
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Date End"
+            }
+          },
+          {
+            "in": "query",
+            "name": "date_start",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "format": "date-time",
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Date Start"
+            }
+          },
+          {
+            "in": "query",
+            "name": "interval",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/MetricsDatasetInterval",
+              "default": "HOURLY"
+            }
+          },
+          {
+            "in": "query",
+            "name": "tz",
+            "required": false,
+            "schema": {
+              "default": "UTC",
+              "title": "Tz",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MetricsDatasetsSchema"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Get Metrics Datasets",
+        "tags": [
+          "Metrics"
+        ],
+        "x-codegen-sdk-auth": "server_key",
+        "x-codegen-sdk-group-name": "metrics",
+        "x-codegen-sdk-method-name": "getDatasets"
+      }
+    },
+    "/api/v1/metrics/stats": {
+      "get": {
+        "operationId": "Metrics_getStats",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "date_end",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "format": "date-time",
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Date End"
+            }
+          },
+          {
+            "in": "query",
+            "name": "date_start",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "format": "date-time",
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Date Start"
+            }
+          },
+          {
+            "in": "query",
+            "name": "interval",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/MetricsDatasetInterval",
+              "default": "HOURLY"
+            }
+          },
+          {
+            "in": "query",
+            "name": "tz",
+            "required": false,
+            "schema": {
+              "default": "UTC",
+              "title": "Tz",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MetricsStatsSchema"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Get Metrics Stats",
+        "tags": [
+          "Metrics"
+        ],
+        "x-codegen-sdk-auth": "server_key",
+        "x-codegen-sdk-group-name": "metrics",
+        "x-codegen-sdk-method-name": "getStats"
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "CorsOrigins"
+    },
+    {
+      "name": "CustomDomain"
+    },
+    {
+      "name": "Images"
+    },
+    {
+      "name": "Metrics"
+    }
+  ]
+}

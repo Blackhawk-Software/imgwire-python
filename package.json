@@ -1,0 +1,23 @@
+{
+  "name": "imgwire-python-tooling",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Tooling and generation pipeline for the imgwire Python server SDK.",
+  "license": "MIT",
+  "packageManager": "yarn@1.22.22",
+  "type": "module",
+  "scripts": {
+    "generate": "tsx scripts/generate.ts",
+    "postprocess": "tsx scripts/postprocess.ts",
+    "verify-generated": "tsx scripts/verify-generated.ts",
+    "format": "prettier --write README.md docs/**/*.md .github/workflows/*.yml package.json tsconfig.json openapitools.json scripts/**/*.ts",
+    "ci": "yarn verify-generated"
+  },
+  "devDependencies": {
+    "@imgwire/codegen-core": "0.1.3",
+    "@openapitools/openapi-generator-cli": "2.13.4",
+    "prettier": "3.6.2",
+    "tsx": "4.19.2",
+    "typescript": "5.9.3"
+  }
+}
