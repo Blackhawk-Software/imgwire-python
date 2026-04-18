@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from datetime import datetime
-from pydantic import BaseModel, ConfigDict, StrictInt, StrictStr
+from pydantic import BaseModel, ConfigDict, StrictBool, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
 from generated.imgwire_generated.models.custom_metadata_value import CustomMetadataValue
 from generated.imgwire_generated.models.image_status import ImageStatus
@@ -30,6 +30,7 @@ class ImageSchema(BaseModel):
     """
     ImageSchema
     """ # noqa: E501
+    can_upload: StrictBool
     cdn_url: StrictStr
     created_at: datetime
     custom_metadata: Dict[str, CustomMetadataValue]
@@ -41,6 +42,7 @@ class ImageSchema(BaseModel):
     height: StrictInt
     id: StrictStr
     idempotency_key: Optional[StrictStr]
+    is_directly_deliverable: StrictBool
     mime_type: SupportedMimeType
     original_filename: StrictStr
     processed_metadata_at: Optional[datetime]
@@ -50,7 +52,7 @@ class ImageSchema(BaseModel):
     updated_at: datetime
     upload_token_id: Optional[StrictStr]
     width: StrictInt
-    __properties: ClassVar[List[str]] = ["cdn_url", "created_at", "custom_metadata", "deleted_at", "environment_id", "exif_data", "extension", "hash_sha256", "height", "id", "idempotency_key", "mime_type", "original_filename", "processed_metadata_at", "purpose", "size_bytes", "status", "updated_at", "upload_token_id", "width"]
+    __properties: ClassVar[List[str]] = ["can_upload", "cdn_url", "created_at", "custom_metadata", "deleted_at", "environment_id", "exif_data", "extension", "hash_sha256", "height", "id", "idempotency_key", "is_directly_deliverable", "mime_type", "original_filename", "processed_metadata_at", "purpose", "size_bytes", "status", "updated_at", "upload_token_id", "width"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -145,6 +147,7 @@ class ImageSchema(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
+            "can_upload": obj.get("can_upload"),
             "cdn_url": obj.get("cdn_url"),
             "created_at": obj.get("created_at"),
             "custom_metadata": dict(
@@ -161,6 +164,7 @@ class ImageSchema(BaseModel):
             "height": obj.get("height"),
             "id": obj.get("id"),
             "idempotency_key": obj.get("idempotency_key"),
+            "is_directly_deliverable": obj.get("is_directly_deliverable"),
             "mime_type": obj.get("mime_type"),
             "original_filename": obj.get("original_filename"),
             "processed_metadata_at": obj.get("processed_metadata_at"),

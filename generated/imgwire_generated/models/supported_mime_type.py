@@ -27,10 +27,15 @@ class SupportedMimeType(str, Enum):
     allowed enum values
     """
     IMAGE_SLASH_JPEG = 'image/jpeg'
+    IMAGE_SLASH_JXL = 'image/jxl'
     IMAGE_SLASH_PNG = 'image/png'
     IMAGE_SLASH_WEBP = 'image/webp'
     IMAGE_SLASH_AVIF = 'image/avif'
     IMAGE_SLASH_GIF = 'image/gif'
+    IMAGE_SLASH_VND_DOT_MICROSOFT_DOT_ICON = 'image/vnd.microsoft.icon'
+    IMAGE_SLASH_HEIC = 'image/heic'
+    IMAGE_SLASH_BMP = 'image/bmp'
+    IMAGE_SLASH_TIFF = 'image/tiff'
 
     @classmethod
     def from_json(cls, json_str: str) -> Self:

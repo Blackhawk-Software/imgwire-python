@@ -5782,6 +5782,14 @@
           "mime_type": {
             "$ref": "#/components/schemas/SupportedMimeType"
           },
+          "can_upload": {
+            "type": "boolean",
+            "title": "Can Upload"
+          },
+          "is_directly_deliverable": {
+            "type": "boolean",
+            "title": "Is Directly Deliverable"
+          },
           "idempotency_key": {
             "anyOf": [
               {
@@ -5890,6 +5898,8 @@
           "status",
           "cdn_url",
           "mime_type",
+          "can_upload",
+          "is_directly_deliverable",
           "idempotency_key",
           "purpose",
           "extension",
@@ -6717,10 +6727,15 @@
         "type": "string",
         "enum": [
           "image/jpeg",
+          "image/jxl",
           "image/png",
           "image/webp",
           "image/avif",
-          "image/gif"
+          "image/gif",
+          "image/vnd.microsoft.icon",
+          "image/heic",
+          "image/bmp",
+          "image/tiff"
         ],
         "title": "SupportedMimeType",
         "description": "Represents supported image MIME types."

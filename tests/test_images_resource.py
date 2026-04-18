@@ -16,7 +16,8 @@ from imgwire.resources.images import ImagesResource
 
 def make_image_payload() -> dict[str, object]:
     return {
-        "cdn_url": "https://cdn.imgwire.dev/example.jpg",
+        "can_upload": False,
+        "cdn_url": "https://cdn.imgwire.dev/example",
         "created_at": datetime(2026, 4, 14, tzinfo=timezone.utc),
         "custom_metadata": {},
         "deleted_at": None,
@@ -27,6 +28,7 @@ def make_image_payload() -> dict[str, object]:
         "height": 100,
         "id": "img_1",
         "idempotency_key": None,
+        "is_directly_deliverable": True,
         "mime_type": "image/jpeg",
         "original_filename": "example.jpg",
         "processed_metadata_at": None,
@@ -84,7 +86,7 @@ class ImagesResourceTests(unittest.TestCase):
         self.assertIsInstance(created.image, ImgwireImage)
         self.assertEqual(
             created.image.url(width=200),
-            "https://cdn.imgwire.dev/example.jpg?width=200",
+            "https://cdn.imgwire.dev/example?width=200",
         )
 
     def test_list_wraps_page_data(self) -> None:
@@ -95,7 +97,7 @@ class ImagesResourceTests(unittest.TestCase):
         self.assertIsInstance(page.data[0], ImgwireImage)
         self.assertEqual(
             page.data[0].url(preset="small"),
-            "https://cdn.imgwire.dev/example.jpg@small",
+            "https://cdn.imgwire.dev/example@small",
         )
 
     def test_retrieve_wraps_returned_image(self) -> None:
@@ -106,7 +108,7 @@ class ImagesResourceTests(unittest.TestCase):
         self.assertIsInstance(image, ImgwireImage)
         self.assertEqual(
             image.url(bg="#ffffff", w=100),
-            "https://cdn.imgwire.dev/example.jpg?background=ffffff&width=100",
+            "https://cdn.imgwire.dev/example?background=ffffff&width=100",
         )
 
     def test_upload_returns_extended_image(self) -> None:
@@ -120,7 +122,7 @@ class ImagesResourceTests(unittest.TestCase):
         self.assertIsInstance(image, ImgwireImage)
         self.assertEqual(
             image.url(width=150, height=150),
-            "https://cdn.imgwire.dev/example.jpg?height=150&width=150",
+            "https://cdn.imgwire.dev/example?height=150&width=150",
         )
 
 

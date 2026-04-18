@@ -145,7 +145,7 @@ print(
     image.url(
         width=1200,
         height=800,
-        format="webp",
+        format="auto",
         quality=80,
     )
 )
@@ -202,7 +202,7 @@ thumbnail_url = image.url(
     preset="thumbnail",
     width=300,
     height=300,
-    format="webp",
+    format="auto",
     quality=80,
 )
 

@@ -9,7 +9,8 @@ from imgwire.images import ImgwireImage, extend_image
 def make_image() -> ImgwireImage:
     return extend_image(
         {
-            "cdn_url": "https://cdn.imgwire.dev/example.jpg",
+            "can_upload": False,
+            "cdn_url": "https://cdn.imgwire.dev/example",
             "created_at": datetime(2026, 4, 14, tzinfo=timezone.utc),
             "custom_metadata": {},
             "deleted_at": None,
@@ -20,6 +21,7 @@ def make_image() -> ImgwireImage:
             "height": 100,
             "id": "img_1",
             "idempotency_key": None,
+            "is_directly_deliverable": True,
             "mime_type": "image/jpeg",
             "original_filename": "example.jpg",
             "processed_metadata_at": None,
@@ -39,7 +41,7 @@ class ImageUrlBuilderTests(unittest.TestCase):
 
         self.assertEqual(
             image.url(preset="thumbnail", bg="#ffffff", h=150, rot=90, w=150),
-            "https://cdn.imgwire.dev/example.jpg@thumbnail"
+            "https://cdn.imgwire.dev/example@thumbnail"
             "?background=ffffff&height=150&rotate=90&width=150",
         )
 
@@ -48,7 +50,15 @@ class ImageUrlBuilderTests(unittest.TestCase):
 
         self.assertEqual(
             image.url(enlarge=False, strip_metadata=True),
-            "https://cdn.imgwire.dev/example.jpg?strip_metadata=true",
+            "https://cdn.imgwire.dev/example?strip_metadata=true",
+        )
+
+    def test_accepts_auto_output_format(self) -> None:
+        image = make_image()
+
+        self.assertEqual(
+            image.url(format="auto"),
+            "https://cdn.imgwire.dev/example?format=auto",
         )
 
     def test_rejects_duplicate_aliases_for_same_canonical_rule(self) -> None:

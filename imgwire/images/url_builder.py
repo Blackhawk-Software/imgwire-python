@@ -19,7 +19,7 @@ IMAGE_URL_GRAVITY_TYPES = (
     "ce",
 )
 IMAGE_URL_RESIZING_TYPES = ("fit", "fill", "fill-down", "force", "auto")
-IMAGE_URL_OUTPUT_FORMATS = ("jpg", "png", "avif", "gif", "webp")
+IMAGE_URL_OUTPUT_FORMATS = ("jpg", "png", "avif", "gif", "webp", "auto")
 IMAGE_URL_ROTATE_ANGLES = (0, 90, 180, 270, 360)
 
 
@@ -102,16 +102,7 @@ def _parse_transformation_entries(
 
 
 def _append_preset_to_path(pathname: str, preset: str) -> str:
-    slash_index = pathname.rfind("/")
-    prefix = pathname[: slash_index + 1] if slash_index >= 0 else ""
-    file_name = pathname[slash_index + 1 :] if slash_index >= 0 else pathname
-    dot_index = file_name.rfind(".")
-    if dot_index <= 0 or dot_index == len(file_name) - 1:
-        raise ValueError(
-            "Cannot apply an image URL preset to a CDN url without a file extension."
-        )
-
-    return f"{prefix}{file_name[: dot_index + 1]}{file_name[dot_index + 1 :]}@{preset}"
+    return f"{pathname}@{preset}"
 
 
 def _create_transformation(canonical: str, cache_value: str) -> TransformationEntry:
