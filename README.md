@@ -1,6 +1,9 @@
+![imgwire.dev Logo](https://cdn.imgwire.dev/6b024480-a5ac-426d-b539-2e4fccc4c6ac/26f80c13-48bd-4bb9-866e-5e9392b11a6a/4ba5fe50-433b-40db-a847-938d2081c21a?w=280&quality=80)
+
 # `imgwire`
 
 [![PyPI version](https://img.shields.io/pypi/v/imgwire.svg)](https://pypi.org/project/imgwire/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
 [![Python versions](https://img.shields.io/pypi/pyversions/imgwire.svg)](https://pypi.org/project/imgwire/)
 [![CI](https://github.com/Blackhawk-Software/imgwire-python/actions/workflows/ci.yml/badge.svg)](https://github.com/Blackhawk-Software/imgwire-python/actions/workflows/ci.yml)
 [![Release](https://github.com/Blackhawk-Software/imgwire-python/actions/workflows/release.yml/badge.svg)](https://github.com/Blackhawk-Software/imgwire-python/actions/workflows/release.yml)
@@ -8,6 +11,9 @@
 `imgwire` is the server-side Python SDK for the imgwire API.
 
 Use it in backend services, jobs, and server runtimes to authenticate with a Server API Key, upload files from Python paths, file objects, or bytes, manage server-side resources, and call the imgwire API without hand-writing request plumbing.
+
+> [!TIP]
+> Obtain an API key by signing up at [imgwire.dev](https://imgwire.dev). Read the full API & SDK documentation [here](https://docs.imgwire.dev/guides/backend-quickstart).
 
 ## Installation
 
