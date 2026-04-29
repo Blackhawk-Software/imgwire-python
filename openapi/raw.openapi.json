@@ -909,6 +909,99 @@
         "x-codegen-sdk-ignore": true
       }
     },
+    "/api/v1/billing_plans/public": {
+      "get": {
+        "tags": [
+          "Billing Plans"
+        ],
+        "summary": "List Public Billing Plans",
+        "operationId": "list_public_billing_plans_api_v1_billing_plans_public_get",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "default": 1,
+              "title": "Page"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 100,
+              "minimum": 1,
+              "default": 20,
+              "title": "Limit"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/BillingPlanSchema"
+                  },
+                  "title": "Response List Public Billing Plans Api V1 Billing Plans Public Get"
+                }
+              }
+            },
+            "headers": {
+              "X-Total-Count": {
+                "description": "Total number of items matching the request.",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "X-Page": {
+                "description": "Current page number.",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "X-Limit": {
+                "description": "Maximum number of items returned per page.",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "X-Prev-Page": {
+                "description": "Previous page number, or null when there is no previous page.",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "X-Next-Page": {
+                "description": "Next page number, or null when there is no next page.",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-codegen-sdk-ignore": true
+      }
+    },
     "/api/v1/billing_plans/": {
       "get": {
         "tags": [

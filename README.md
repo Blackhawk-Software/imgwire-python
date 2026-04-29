@@ -215,7 +215,10 @@ thumbnail_url = image.url(
 print(thumbnail_url)
 ```
 
-The SDK validates and normalizes transformation values to match the CDN worker. Query params are emitted using canonical rule names and sorted deterministically.
+The SDK validates and normalizes transformation values to match the CDN worker.
+Invalid transformation values are omitted from the generated URL instead of
+being sent to the CDN. Query params are emitted using canonical rule names and
+sorted deterministically.
 
 Examples:
 
@@ -223,6 +226,8 @@ Examples:
 image.url(bg="#ffffff", w=150, h=150, rot=90)
 image.url(strip_metadata=True, enlarge=False)
 image.url(crop="300:300:ce", gravity="ce")
+image.url(gradient={"colors": ["#0b1f5e", "#ff2a2a"], "angle": 90})
+image.url(watermark_url="https://example.com/logo.png")
 ```
 
 ### `client.custom_domain`
