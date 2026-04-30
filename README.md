@@ -152,7 +152,8 @@ print(
         width=1200,
         height=800,
         format="auto",
-        quality=80,
+        quality="auto",
+        progressive="auto",
     )
 )
 ```
@@ -209,7 +210,9 @@ thumbnail_url = image.url(
     width=300,
     height=300,
     format="auto",
-    quality=80,
+    quality="auto",
+    progressive="auto",
+    chroma_subsampling="4:4:4",
 )
 
 print(thumbnail_url)
@@ -225,6 +228,7 @@ Examples:
 ```python
 image.url(bg="#ffffff", w=150, h=150, rot=90)
 image.url(strip_metadata=True, enlarge=False)
+image.url(quality="auto", progressive="auto", chroma_subsampling="4:2:2")
 image.url(crop="300:300:ce", gravity="ce")
 image.url(gradient={"colors": ["#0b1f5e", "#ff2a2a"], "angle": 90})
 image.url(watermark_url="https://example.com/logo.png")

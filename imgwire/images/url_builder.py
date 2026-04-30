@@ -57,6 +57,7 @@ IMAGE_URL_RESIZING_ALGORITHMS = (
     "lanczos3",
 )
 IMAGE_URL_OUTPUT_FORMATS = ("auto", "jpg", "jpeg", "png", "webp", "avif", "gif", "tiff")
+IMAGE_URL_CHROMA_SUBSAMPLING_VALUES = ("4:4:4", "4:2:2", "auto")
 IMAGE_URL_TRUTHY_VALUES = ("true", "t", "1")
 IMAGE_URL_FALSY_VALUES = ("false", "f", "0")
 
@@ -462,9 +463,25 @@ def _parse_boolean_transformation(value: Any, canonical: str) -> TransformationE
 
 
 def _parse_quality(value: Any, canonical: str) -> TransformationEntry:
+    if _is_auto_string(value):
+        return _create_transformation(canonical, "auto")
+
     return _create_transformation(
         canonical, str(_parse_integer(value, canonical, minimum=1, maximum=100))
     )
+
+
+def _parse_progressive(value: Any, canonical: str) -> TransformationEntry:
+    if _is_auto_string(value):
+        return _create_transformation(canonical, "auto")
+    return _parse_boolean_transformation(value, canonical)
+
+
+def _parse_chroma_subsampling(value: Any, canonical: str) -> TransformationEntry:
+    chroma_subsampling = _parse_string(value, canonical).strip().lower()
+    if chroma_subsampling not in IMAGE_URL_CHROMA_SUBSAMPLING_VALUES:
+        raise ValueError(f"Invalid transformation rule value for {canonical}")
+    return _create_transformation(canonical, chroma_subsampling)
 
 
 def _parse_format(value: Any, canonical: str) -> TransformationEntry:
@@ -956,6 +973,10 @@ def _is_falsy_string(value: Any) -> bool:
     return value.strip().lower() in IMAGE_URL_FALSY_VALUES
 
 
+def _is_auto_string(value: Any) -> bool:
+    return isinstance(value, str) and value.strip().lower() == "auto"
+
+
 def _parse_string(value: Any, label: str) -> str:
     return _stringify_value(value, label)
 
@@ -1162,6 +1183,11 @@ RULES = (
         canonical="brightness", aliases=("br", "brightness"), parse=_parse_simple_number
     ),
     Rule(
+        canonical="chroma_subsampling",
+        aliases=("chroma_subsampling",),
+        parse=_parse_chroma_subsampling,
+    ),
+    Rule(
         canonical="color_profile",
         aliases=("cp", "icc", "color_profile"),
         parse=_parse_color_profile,
@@ -1214,6 +1240,11 @@ RULES = (
     ),
     Rule(canonical="padding", aliases=("pd", "padding"), parse=_parse_padding),
     Rule(canonical="pixelate", aliases=("pix", "pixelate"), parse=_parse_pixelate),
+    Rule(
+        canonical="progressive",
+        aliases=("progressive",),
+        parse=_parse_progressive,
+    ),
     Rule(canonical="quality", aliases=("q", "quality"), parse=_parse_quality),
     Rule(
         canonical="resizing_algorithm",

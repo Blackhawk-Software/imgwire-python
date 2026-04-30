@@ -62,6 +62,25 @@ class ImageUrlBuilderTests(unittest.TestCase):
             "https://cdn.imgwire.dev/example?format=auto",
         )
 
+    def test_supports_encoding_transform_updates(self) -> None:
+        image = make_image()
+
+        self.assertEqual(
+            image.url(chroma_subsampling="4:4:4", progressive="auto", quality="auto"),
+            "https://cdn.imgwire.dev/example?chroma_subsampling=4%3A4%3A4"
+            "&progressive=auto&quality=auto",
+        )
+        self.assertEqual(
+            image.url(chroma_subsampling="AUTO", progressive=True, q=85),
+            "https://cdn.imgwire.dev/example?chroma_subsampling=auto"
+            "&progressive=true&quality=85",
+        )
+        self.assertEqual(
+            image.url(chroma_subsampling="4:2:2", progressive=False),
+            "https://cdn.imgwire.dev/example?chroma_subsampling=4%3A2%3A2"
+            "&progressive=false",
+        )
+
     def test_rejects_duplicate_aliases_for_same_canonical_rule(self) -> None:
         image = make_image()
 
@@ -73,6 +92,15 @@ class ImageUrlBuilderTests(unittest.TestCase):
 
         self.assertEqual(
             image.url(width=800, pixelate=1, quality=0, dpr=9),
+            "https://cdn.imgwire.dev/example?width=800",
+        )
+        self.assertEqual(
+            image.url(
+                width=800,
+                chroma_subsampling="4:2:0",
+                progressive="maybe",
+                quality="best",
+            ),
             "https://cdn.imgwire.dev/example?width=800",
         )
         self.assertEqual(
@@ -125,6 +153,7 @@ class ImageUrlBuilderTests(unittest.TestCase):
                 "background_alpha": 0.5,
                 "blur": True,
                 "brightness": 1.2,
+                "chroma_subsampling": "4:2:2",
                 "color_profile": "srgb",
                 "colorize": "#112233",
                 "contrast": {"multiplier": 1.1, "pivot": 128},
@@ -171,6 +200,7 @@ class ImageUrlBuilderTests(unittest.TestCase):
                 "normalize": {"lower": 1, "upper": 99},
                 "padding": {"all": 5, "background": "#ffffff"},
                 "pixelate": 8,
+                "progressive": "auto",
                 "quality": 80,
                 "resizing_algorithm": "lanczos3",
                 "resizing_type": "fit",
@@ -218,6 +248,7 @@ class ImageUrlBuilderTests(unittest.TestCase):
                 "background_alpha",
                 "blur",
                 "brightness",
+                "chroma_subsampling",
                 "color_profile",
                 "colorize",
                 "contrast",
@@ -243,6 +274,7 @@ class ImageUrlBuilderTests(unittest.TestCase):
                 "normalize",
                 "padding",
                 "pixelate",
+                "progressive",
                 "quality",
                 "resizing_algorithm",
                 "resizing_type",
@@ -265,10 +297,12 @@ class ImageUrlBuilderTests(unittest.TestCase):
 
         self.assertEqual(params["background"], "fff")
         self.assertEqual(params["blur"], "true")
+        self.assertEqual(params["chroma_subsampling"], "4:2:2")
         self.assertEqual(params["format"], "jpg")
         self.assertEqual(params["gravity"], "southeast")
         self.assertEqual(params["monochrome"], "333333")
         self.assertEqual(params["negate"], "alpha:true")
+        self.assertEqual(params["progressive"], "auto")
         self.assertEqual(params["resizing_type"], "inside")
         self.assertEqual(
             params["watermark_url"], "aHR0cHM6Ly9leGFtcGxlLmNvbS9sb2dvLnBuZw=="
