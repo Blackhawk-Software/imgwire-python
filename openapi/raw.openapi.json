@@ -2254,6 +2254,69 @@
         "x-codegen-sdk-auth": "server_or_client_key"
       }
     },
+    "/api/v1/images/upload_via_url": {
+      "post": {
+        "tags": [
+          "Images"
+        ],
+        "summary": "Upload Image Via URL",
+        "operationId": "upload_image_via_url_api_v1_images_upload_via_url_post",
+        "parameters": [
+          {
+            "name": "X-Environment-Id",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "uuid"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Environment-Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UploadViaUrlCreateSchema"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ImageSchema"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "x-codegen-sdk-group-name": "images",
+        "x-codegen-sdk-method-name": "uploadViaUrl",
+        "x-codegen-sdk-auth": "server_key"
+      }
+    },
     "/api/v1/images/token": {
       "post": {
         "tags": [
@@ -7217,6 +7280,89 @@
           "token"
         ],
         "title": "UploadTokenCreateResponseSchema"
+      },
+      "UploadViaUrlCreateSchema": {
+        "properties": {
+          "url": {
+            "type": "string",
+            "minLength": 1,
+            "format": "uri",
+            "title": "Url"
+          },
+          "file_name": {
+            "anyOf": [
+              {
+                "type": "string",
+                "minLength": 1
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "File Name"
+          },
+          "mime_type": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SupportedMimeType"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "idempotency_key": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 255,
+                "minLength": 1
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Idempotency Key"
+          },
+          "purpose": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 255,
+                "minLength": 1
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Purpose"
+          },
+          "custom_metadata": {
+            "additionalProperties": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "boolean"
+                }
+              ]
+            },
+            "type": "object",
+            "title": "Custom Metadata"
+          }
+        },
+        "type": "object",
+        "required": [
+          "url"
+        ],
+        "title": "UploadViaUrlCreateSchema"
       },
       "UploadsDatasetPointSchema": {
         "properties": {

@@ -80,6 +80,7 @@ Supported methods:
 - `retrieve(image_id)`
 - `create(body, upload_token=None)`
 - `upload(file, file_name=None, mime_type=None, content_length=None, ...)`
+- `upload_via_url(url, file_name=None, mime_type=None, ...)`
 - `create_upload_token()`
 - `create_bulk_download_job(body)`
 - `retrieve_bulk_download_job(image_download_job_id)`
@@ -165,6 +166,16 @@ image = client.images.upload(
     image_bytes,
     file_name="hero.png",
     mime_type="image/png",
+)
+```
+
+Upload from a public URL:
+
+```python
+image = client.images.upload_via_url(
+    "https://assets.example.com/hero.png",
+    file_name="hero.png",
+    custom_metadata={"source": "marketing"},
 )
 ```
 

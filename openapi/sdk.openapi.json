@@ -933,6 +933,89 @@
         "title": "UploadTokenCreateResponseSchema",
         "type": "object"
       },
+      "UploadViaUrlCreateSchema": {
+        "properties": {
+          "custom_metadata": {
+            "additionalProperties": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "boolean"
+                }
+              ]
+            },
+            "title": "Custom Metadata",
+            "type": "object"
+          },
+          "file_name": {
+            "anyOf": [
+              {
+                "minLength": 1,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "File Name"
+          },
+          "idempotency_key": {
+            "anyOf": [
+              {
+                "maxLength": 255,
+                "minLength": 1,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Idempotency Key"
+          },
+          "mime_type": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SupportedMimeType"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "purpose": {
+            "anyOf": [
+              {
+                "maxLength": 255,
+                "minLength": 1,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Purpose"
+          },
+          "url": {
+            "format": "uri",
+            "minLength": 1,
+            "title": "Url",
+            "type": "string"
+          }
+        },
+        "required": [
+          "url"
+        ],
+        "title": "UploadViaUrlCreateSchema",
+        "type": "object"
+      },
       "ValidationError": {
         "properties": {
           "loc": {
@@ -1836,6 +1919,51 @@
         "x-codegen-sdk-auth": "server_key",
         "x-codegen-sdk-group-name": "images",
         "x-codegen-sdk-method-name": "createUploadToken"
+      }
+    },
+    "/api/v1/images/upload_via_url": {
+      "post": {
+        "operationId": "Images_uploadViaUrl",
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UploadViaUrlCreateSchema"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ImageSchema"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Upload Image Via URL",
+        "tags": [
+          "Images"
+        ],
+        "x-codegen-sdk-auth": "server_key",
+        "x-codegen-sdk-group-name": "images",
+        "x-codegen-sdk-method-name": "uploadViaUrl"
       }
     },
     "/api/v1/metrics/datasets": {

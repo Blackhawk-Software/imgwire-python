@@ -8,6 +8,9 @@ from generated.imgwire_generated.api_response import ApiResponse
 from generated.imgwire_generated.models.standard_upload_response_schema import (
     StandardUploadResponseSchema,
 )
+from generated.imgwire_generated.models.upload_via_url_create_schema import (
+    UploadViaUrlCreateSchema,
+)
 
 from imgwire.client.options import ImgwireClientOptions
 from imgwire.images import ImgwireImage
@@ -44,12 +47,25 @@ def make_image_payload() -> dict[str, object]:
 class FakeImagesApi:
     def __init__(self) -> None:
         self.image_payload = make_image_payload()
+        self.create_calls = []
+        self.upload_via_url_calls = []
 
     def images_create(self, body, upload_token=None) -> StandardUploadResponseSchema:
+        self.create_calls.append({"body": body, "upload_token": upload_token})
         return StandardUploadResponseSchema(
             image=self.image_payload,
             upload_url="https://uploads.imgwire.dev/example",
         )
+
+    def images_upload_via_url(
+        self, body: UploadViaUrlCreateSchema
+    ) -> dict[str, object]:
+        self.upload_via_url_calls.append(body)
+        return {
+            **self.image_payload,
+            "original_filename": "remote.png",
+            "status": "PENDING",
+        }
 
     def images_list_with_http_info(
         self, limit=None, page=None
@@ -81,13 +97,17 @@ class ImagesResourceTests(unittest.TestCase):
     def test_create_wraps_response_image(self) -> None:
         resource = self.make_resource()
 
-        created = resource.create({"file_name": "example.jpg"})
+        created = resource.create(
+            {"file_name": "example.jpg", "custom_metadata": {"source": "direct"}}
+        )
 
         self.assertIsInstance(created.image, ImgwireImage)
         self.assertEqual(
             created.image.url(width=200),
             "https://cdn.imgwire.dev/example?width=200",
         )
+        body = resource._api.create_calls[0]["body"]
+        self.assertEqual(body.to_dict()["custom_metadata"], {"source": "direct"})
 
     def test_list_wraps_page_data(self) -> None:
         resource = self.make_resource()
@@ -116,13 +136,54 @@ class ImagesResourceTests(unittest.TestCase):
 
         with patch("imgwire.resources.images.upload_bytes"):
             image = resource.upload(
-                b"payload", file_name="example.jpg", mime_type="image/jpeg"
+                b"payload",
+                file_name="example.jpg",
+                mime_type="image/jpeg",
+                custom_metadata={"source": "bytes", "attempt": 1},
             )
 
         self.assertIsInstance(image, ImgwireImage)
         self.assertEqual(
             image.url(width=150, height=150),
             "https://cdn.imgwire.dev/example?height=150&width=150",
+        )
+        body = resource._api.create_calls[0]["body"]
+        self.assertEqual(
+            body.to_dict()["custom_metadata"],
+            {"source": "bytes", "attempt": 1},
+        )
+
+    def test_upload_via_url_returns_extended_image(self) -> None:
+        resource = self.make_resource()
+
+        image = resource.upload_via_url(
+            "https://assets.example/remote.png",
+            file_name="remote.png",
+            mime_type="image/png",
+            custom_metadata={"source": "remote", "verified": True},
+            idempotency_key="remote-1",
+            purpose="avatar",
+        )
+
+        self.assertIsInstance(image, ImgwireImage)
+        self.assertEqual(image.original_filename, "remote.png")
+        self.assertEqual(image.status, "PENDING")
+        self.assertEqual(
+            image.url(width=200),
+            "https://cdn.imgwire.dev/example?width=200",
+        )
+
+        body = resource._api.upload_via_url_calls[0]
+        self.assertEqual(
+            body.to_dict(),
+            {
+                "custom_metadata": {"source": "remote", "verified": True},
+                "file_name": "remote.png",
+                "idempotency_key": "remote-1",
+                "mime_type": "image/png",
+                "purpose": "avatar",
+                "url": "https://assets.example/remote.png",
+            },
         )
 
 

@@ -6,13 +6,15 @@ from generated.imgwire_generated.api.images_api import ImagesApi
 from generated.imgwire_generated.models.bulk_delete_images_schema import (
     BulkDeleteImagesSchema,
 )
+from generated.imgwire_generated.models.custom_metadata_value import (
+    CustomMetadataValue,
+)
 from generated.imgwire_generated.models.image_download_job_create_schema import (
     ImageDownloadJobCreateSchema,
 )
 from generated.imgwire_generated.models.image_download_job_schema import (
     ImageDownloadJobSchema,
 )
-from generated.imgwire_generated.models.image_schema import ImageSchema
 from generated.imgwire_generated.models.standard_upload_create_schema import (
     StandardUploadCreateSchema,
 )
@@ -21,6 +23,9 @@ from generated.imgwire_generated.models.standard_upload_response_schema import (
 )
 from generated.imgwire_generated.models.upload_token_create_response_schema import (
     UploadTokenCreateResponseSchema,
+)
+from generated.imgwire_generated.models.upload_via_url_create_schema import (
+    UploadViaUrlCreateSchema,
 )
 
 from imgwire.client.options import ImgwireClientOptions
@@ -49,7 +54,7 @@ class ImagesResource(BaseResource):
         *,
         upload_token: Optional[str] = None,
     ) -> StandardUploadResponseSchema:
-        body = self._coerce_model(StandardUploadCreateSchema, payload)
+        body = _coerce_standard_upload_payload(payload)
         created = self._call(
             lambda: self._api.images_create(body, upload_token=upload_token)
         )
@@ -138,6 +143,27 @@ class ImagesResource(BaseResource):
         )
         return extend_image(created.image)
 
+    def upload_via_url(
+        self,
+        url: str,
+        *,
+        file_name: Optional[str] = None,
+        mime_type: Optional[str] = None,
+        custom_metadata: Optional[dict[str, Any]] = None,
+        idempotency_key: Optional[str] = None,
+        purpose: Optional[str] = None,
+    ) -> ImgwireImage:
+        body = UploadViaUrlCreateSchema(
+            custom_metadata=_coerce_custom_metadata(custom_metadata),
+            file_name=file_name,
+            idempotency_key=idempotency_key,
+            mime_type=mime_type,
+            purpose=purpose,
+            url=url,
+        )
+        image = self._call(lambda: self._api.images_upload_via_url(body))
+        return extend_image(image)
+
 
 def _build_standard_upload_payload(
     resolved: ResolvedUpload,
@@ -148,10 +174,42 @@ def _build_standard_upload_payload(
 ) -> StandardUploadCreateSchema:
     return StandardUploadCreateSchema(
         content_length=resolved.content_length,
-        custom_metadata=custom_metadata,
+        custom_metadata=_coerce_custom_metadata(custom_metadata),
         file_name=resolved.file_name,
         hash_sha256=hash_sha256,
         idempotency_key=idempotency_key,
         mime_type=resolved.mime_type,
         purpose=purpose,
     )
+
+
+def _coerce_standard_upload_payload(
+    payload: StandardUploadCreateSchema | Mapping[str, Any],
+) -> StandardUploadCreateSchema:
+    if isinstance(payload, StandardUploadCreateSchema):
+        return payload
+
+    return StandardUploadCreateSchema.model_validate(
+        _coerce_custom_metadata_mapping(payload)
+    )
+
+
+def _coerce_custom_metadata_mapping(payload: Mapping[str, Any]) -> dict[str, Any]:
+    coerced = dict(payload)
+    if "custom_metadata" in coerced:
+        coerced["custom_metadata"] = _coerce_custom_metadata(coerced["custom_metadata"])
+    return coerced
+
+
+def _coerce_custom_metadata(
+    custom_metadata: Optional[Mapping[str, Any]],
+) -> Optional[dict[str, CustomMetadataValue]]:
+    if custom_metadata is None:
+        return None
+
+    return {
+        key: value
+        if isinstance(value, CustomMetadataValue)
+        else CustomMetadataValue(value)
+        for key, value in custom_metadata.items()
+    }

@@ -60,6 +60,7 @@ __all__ = [
     "TransferBytesDatasetPointSchema",
     "TransformationsDatasetPointSchema",
     "UploadTokenCreateResponseSchema",
+    "UploadViaUrlCreateSchema",
     "UploadsDatasetPointSchema",
     "ValidationError",
 ]
@@ -111,5 +112,6 @@ from generated.imgwire_generated.models.supported_mime_type import SupportedMime
 from generated.imgwire_generated.models.transfer_bytes_dataset_point_schema import TransferBytesDatasetPointSchema as TransferBytesDatasetPointSchema
 from generated.imgwire_generated.models.transformations_dataset_point_schema import TransformationsDatasetPointSchema as TransformationsDatasetPointSchema
 from generated.imgwire_generated.models.upload_token_create_response_schema import UploadTokenCreateResponseSchema as UploadTokenCreateResponseSchema
+from generated.imgwire_generated.models.upload_via_url_create_schema import UploadViaUrlCreateSchema as UploadViaUrlCreateSchema
 from generated.imgwire_generated.models.uploads_dataset_point_schema import UploadsDatasetPointSchema as UploadsDatasetPointSchema
 from generated.imgwire_generated.models.validation_error import ValidationError as ValidationError
